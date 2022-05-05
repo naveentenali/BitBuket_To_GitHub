@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Usage:
+#   Create the repo in Github, and then give the repo name as the argument:
+#   ./migrate-git-repos.sh repo-name
+
+# Echo commands as they're run, and expand variables
+set -o xtrace
+
+REPO="$1"
+
+git clone --mirror git@bitbucket.org:orgname/$REPO.git
+cd $REPO.git
+git remote set-url origin git@github.com:orgname/$REPO.git
+git push --mirror
